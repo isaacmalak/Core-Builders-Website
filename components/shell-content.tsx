@@ -15,7 +15,7 @@ export function ShellContent({ children }: ShellContentProps) {
   return (
     <div className={`${language === 'ar' ? 'rtl' : 'ltr'} flex flex-col min-h-screen relative`}>
       <AnimatedBackground />
-      <Navbar language={language} onLanguageChange={setLanguage} />
+      <Navbar language={language} />
       <main className="flex-1 relative z-10">
         {children}
       </main>

@@ -1,61 +1,63 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
-import gsap from 'gsap'
-import { COMPANY_NAME } from '@/lib/translations'
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import gsap from "gsap";
+import { COMPANY_NAME } from "@/lib/translations";
 
 interface NavbarProps {
-  language: 'en' | 'ar'
-  onLanguageChange: (lang: 'en' | 'ar') => void
+  language: "en" | "ar";
 }
 
-export function Navbar({ language, onLanguageChange }: NavbarProps) {
-  const [isOpen, setIsOpen] = useState(false)
-  const isArabic = language === 'ar'
-  const navRef = useRef<HTMLDivElement>(null)
+export function Navbar({ language }: NavbarProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const isArabic = language === "ar";
+  const navRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       if (navRef.current) {
         if (window.scrollY > 0) {
           gsap.to(navRef.current, {
-            boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
             duration: 0.3,
-          })
+          });
         } else {
           gsap.to(navRef.current, {
-            boxShadow: 'none',
+            boxShadow: "none",
             duration: 0.3,
-          })
+          });
         }
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = isArabic
     ? [
-        { label: 'الرئيسية', href: '/' },
-        { label: 'الخدمات', href: '/services' },
-        { label: 'من نحن', href: '/about' },
-        { label: 'أعمالنا', href: '/portfolio' },
-        { label: 'شهادات العملاء', href: '/testimonials' },
-        { label: 'اتصل بنا', href: '/contact' },
+        { label: "الرئيسية", href: "/" },
+        { label: "الخدمات", href: "/services" },
+        { label: "من نحن", href: "/about" },
+        { label: "أعمالنا", href: "/portfolio" },
+        { label: "شهادات العملاء", href: "/testimonials" },
+        { label: "اتصل بنا", href: "/contact" },
       ]
     : [
-        { label: 'Home', href: '/' },
-        { label: 'Services', href: '/services' },
-        { label: 'About', href: '/about' },
-        { label: 'Portfolio', href: '/portfolio' },
-        { label: 'Testimonials', href: '/testimonials' },
-        { label: 'Contact', href: '/contact' },
-      ]
+        { label: "Home", href: "/" },
+        { label: "Services", href: "/services" },
+        { label: "About", href: "/about" },
+        { label: "Portfolio", href: "/portfolio" },
+        { label: "Testimonials", href: "/testimonials" },
+        { label: "Contact", href: "/contact" },
+      ];
 
   return (
-    <nav ref={navRef} className="sticky top-0 z-50 bg-background border-b border-border">
+    <nav
+      ref={navRef}
+      className="sticky top-0 z-50 bg-background border-b border-border"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -79,16 +81,8 @@ export function Navbar({ language, onLanguageChange }: NavbarProps) {
             ))}
           </div>
 
-          {/* Language Toggle & Mobile Menu Button */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => onLanguageChange(language === 'en' ? 'ar' : 'en')}
-              className="px-3 py-1 text-sm font-medium border border-border rounded hover:bg-secondary transition-colors"
-            >
-              {language === 'en' ? 'العربية' : 'English'}
-            </button>
-
-            {/* Mobile Menu Button */}
+          {/* Mobile Menu Button */}
+          <div className="flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="md:hidden p-2 text-foreground hover:bg-secondary rounded transition-colors"
@@ -136,5 +130,5 @@ export function Navbar({ language, onLanguageChange }: NavbarProps) {
         )}
       </div>
     </nav>
-  )
+  );
 }
