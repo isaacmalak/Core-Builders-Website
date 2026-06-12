@@ -1,196 +1,268 @@
-'use client'
+"use client";
 
-import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Environment, ContactShadows, Html, Float } from '@react-three/drei'
-import { useState, useRef } from 'react'
-import * as THREE from 'three'
+import { useState, useRef, Suspense } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import {
+  Environment,
+  OrbitControls,
+  Float,
+  Html,
+  Preload,
+  MeshTransmissionMaterial,
+  MeshWobbleMaterial,
+  Sparkles,
+  Torus,
+} from "@react-three/drei";
+import * as THREE from "three";
 
+// ------------------------------------------------------------------
+// 1. Core Component
+// ------------------------------------------------------------------
 function Core() {
-  const ref = useRef()
-  
-  useFrame(() => {
-    if (ref.current) {
-      ref.current.rotation.x += 0.001
-      ref.current.rotation.y += 0.002
-    }
-  })
-
   return (
-    <Float speed={2} rotationIntensity={0.3} floatIntensity={0.5}>
-      <mesh ref={ref} position={[0, 0, 0]}>
-        <icosahedronGeometry args={[0.8, 4]} />
-        <meshStandardMaterial 
-          color="#3b82f6"
-          wireframe
-          emissive="#3b82f6"
-          emissiveIntensity={0.3}
+    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+      <mesh>
+        <sphereGeometry args={[1.8, 64, 64]} />
+        <MeshTransmissionMaterial
+          backside
+          backsideThickness={5}
+          thickness={2}
+          chromaticAberration={0.06}
+          anisotropy={0.5}
+          distortion={0.2}
+          distortionScale={0.3}
+          temporalDistortion={0.1}
+          color="#ffffff"
+          clearcoat={1}
+          clearcoatRoughness={0.1}
         />
+      </mesh>
+      <mesh>
+        <sphereGeometry args={[0.8, 32, 32]} />
+        <meshBasicMaterial color="#ffffff" opacity={0.8} transparent />
       </mesh>
     </Float>
-  )
+  );
 }
 
-function SoftwareProductsNode({ isHovered, onHover, orbitAngle }) {
-  const ref = useRef()
-  const scale = isHovered ? 1.3 : 1
-  
-  useFrame(() => {
+// ------------------------------------------------------------------
+// 2. Software Products Node
+// ------------------------------------------------------------------
+function SoftwareProductsNode({
+  setHovered,
+}: {
+  setHovered: (v: boolean) => void;
+}) {
+  const ref = useRef<THREE.Group>(null);
+
+  useFrame((state) => {
     if (ref.current) {
-      ref.current.position.x = Math.cos(orbitAngle) * 3
-      ref.current.position.z = Math.sin(orbitAngle) * 3
+      ref.current.rotation.x = state.clock.elapsedTime * 0.2;
+      ref.current.rotation.y = state.clock.elapsedTime * 0.3;
     }
-  })
+  });
 
   return (
-    <group ref={ref} onPointerOver={() => onHover(true)} onPointerOut={() => onHover(false)}>
-      {/* Cube cluster for software structure */}
-      <mesh scale={scale} position={[-0.3, 0, 0]}>
-        <boxGeometry args={[0.6, 0.6, 0.6]} />
-        <meshStandardMaterial 
-          color={isHovered ? '#00ffff' : '#3b82f6'}
-          metalness={0.9}
-          roughness={0.1}
-          emissive={isHovered ? '#00ffff' : '#3b82f6'}
-          emissiveIntensity={isHovered ? 0.8 : 0.3}
-        />
-      </mesh>
-      
-      <mesh scale={scale} position={[0.3, 0, 0]}>
-        <boxGeometry args={[0.6, 0.6, 0.6]} />
-        <meshStandardMaterial 
-          color={isHovered ? '#00ffff' : '#3b82f6'}
-          metalness={0.9}
-          roughness={0.1}
-          emissive={isHovered ? '#00ffff' : '#3b82f6'}
-          emissiveIntensity={isHovered ? 0.8 : 0.3}
-        />
-      </mesh>
+    <group
+      position={[-4.5, 1.5, 0]} // Pushed out further to the left
+      ref={ref}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = "pointer";
+      }}
+      onPointerOut={() => {
+        setHovered(false);
+        document.body.style.cursor = "auto";
+      }}
+    >
+      <Float speed={3} rotationIntensity={1} floatIntensity={2}>
+        <mesh>
+          <boxGeometry args={[1.2, 1.2, 1.2]} />
+          <MeshWobbleMaterial
+            factor={0.4}
+            speed={2}
+            color="#06b6d4"
+            roughness={0.1}
+            metalness={0.8}
+          />
+        </mesh>
+        <mesh>
+          <icosahedronGeometry args={[1.6, 1]} />
+          <meshStandardMaterial
+            color="#3b82f6"
+            wireframe
+            opacity={0.4}
+            transparent
+          />
+        </mesh>
 
-      {isHovered && (
-        <Html position={[0, -1.5, 0]} center distanceFactor={1.2} sprite>
-          <div className="bg-slate-900 border border-cyan-400 rounded-lg p-3 w-40 shadow-lg">
-            <h3 className="text-cyan-400 font-bold text-sm">Software Products</h3>
-            <p className="text-gray-300 text-xs mt-1">Custom applications built with modern tech stack</p>
+        <Html position={[0, -2, 0]} center style={{ zIndex: 100 }}>
+          <div className="bg-black/80 backdrop-blur-md border border-cyan-500/30 p-3 rounded-xl w-48 text-center shadow-[0_0_20px_rgba(6,182,212,0.2)] pointer-events-none">
+            <h3 className="font-bold text-cyan-400 text-xs tracking-widest uppercase mb-1">
+              Software
+            </h3>
+            <p className="text-[10px] text-gray-300 leading-tight">
+              Scalable SaaS & Digital Products
+            </p>
           </div>
         </Html>
-      )}
+      </Float>
     </group>
-  )
+  );
 }
 
-function MarketingServicesNode({ isHovered, onHover, orbitAngle }) {
-  const ref = useRef()
-  const scale = isHovered ? 1.3 : 1
-  
-  useFrame(() => {
-    if (ref.current) {
-      ref.current.position.x = Math.cos(orbitAngle + Math.PI) * 3
-      ref.current.position.z = Math.sin(orbitAngle + Math.PI) * 3
+// ------------------------------------------------------------------
+// 3. Marketing Services Node
+// ------------------------------------------------------------------
+function MarketingServicesNode({
+  setHovered,
+}: {
+  setHovered: (v: boolean) => void;
+}) {
+  const outerRingRef = useRef<THREE.Mesh>(null);
+  const innerRingRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (outerRingRef.current && innerRingRef.current) {
+      outerRingRef.current.rotation.x = state.clock.elapsedTime * 0.5;
+      outerRingRef.current.rotation.y = state.clock.elapsedTime * 0.3;
+
+      innerRingRef.current.rotation.x = -state.clock.elapsedTime * 0.4;
+      innerRingRef.current.rotation.y = -state.clock.elapsedTime * 0.6;
     }
-  })
+  });
 
   return (
-    <group ref={ref} onPointerOver={() => onHover(true)} onPointerOut={() => onHover(false)}>
-      {/* Torus knot for marketing growth */}
-      <mesh scale={scale}>
-        <torusKnotGeometry args={[0.5, 0.15, 100, 16]} />
-        <meshStandardMaterial 
-          color={isHovered ? '#ff00ff' : '#ec4899'}
-          metalness={0.8}
-          roughness={0.15}
-          emissive={isHovered ? '#ff00ff' : '#ec4899'}
-          emissiveIntensity={isHovered ? 0.8 : 0.3}
-        />
-      </mesh>
+    <group
+      position={[4.5, -1.5, 0]} // Pushed out further to the right
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = "pointer";
+      }}
+      onPointerOut={() => {
+        setHovered(false);
+        document.body.style.cursor = "auto";
+      }}
+    >
+      <Float speed={2} rotationIntensity={1} floatIntensity={2}>
+        <group>
+          <mesh ref={outerRingRef}>
+            <torusGeometry args={[1.2, 0.08, 16, 64]} />
+            <MeshWobbleMaterial
+              factor={0.2}
+              speed={2}
+              color="#d946ef"
+              metalness={0.8}
+              roughness={0.2}
+            />
+          </mesh>
+          <mesh ref={innerRingRef}>
+            <torusGeometry args={[0.7, 0.06, 16, 64]} />
+            <meshStandardMaterial
+              color="#f0abfc"
+              metalness={0.5}
+              roughness={0.2}
+            />
+          </mesh>
+          <mesh>
+            <sphereGeometry args={[0.25, 32, 32]} />
+            <meshStandardMaterial
+              color="#c026d3"
+              emissive="#c026d3"
+              emissiveIntensity={0.8}
+            />
+          </mesh>
+        </group>
 
-      {isHovered && (
-        <Html position={[0, -1.5, 0]} center distanceFactor={1.2} sprite>
-          <div className="bg-slate-900 border border-pink-500 rounded-lg p-3 w-40 shadow-lg">
-            <h3 className="text-pink-500 font-bold text-sm">Marketing Services</h3>
-            <p className="text-gray-300 text-xs mt-1">Data-driven strategies for growth</p>
+        <Html position={[0, -2, 0]} center style={{ zIndex: 100 }}>
+          <div className="bg-black/80 backdrop-blur-md border border-fuchsia-500/30 p-3 rounded-xl w-48 text-center shadow-[0_0_20px_rgba(217,70,239,0.2)] pointer-events-none">
+            <h3 className="font-bold text-fuchsia-400 text-xs tracking-widest uppercase mb-1">
+              Marketing
+            </h3>
+            <p className="text-[10px] text-gray-300 leading-tight">
+              Targeted Growth & Conversions
+            </p>
           </div>
         </Html>
-      )}
+      </Float>
     </group>
-  )
+  );
 }
 
+// ------------------------------------------------------------------
+// 4. Scene Wrapper
+// ------------------------------------------------------------------
 function Scene() {
-  const [hoveredNode, setHoveredNode] = useState(null)
-  const [rotationPaused, setRotationPaused] = useState(false)
-  const orbitRef = useRef(0)
-
-  useFrame(() => {
-    if (!rotationPaused) {
-      orbitRef.current += 0.01
-    }
-  })
-
-  const handleNodeHover = (node, hovered) => {
-    setHoveredNode(hovered ? node : null)
-    setRotationPaused(hovered)
-  }
+  const groupRef = useRef<THREE.Group>(null);
 
   return (
     <>
+      <Environment preset="city" />
       <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 8, 5]} intensity={0.8} />
-      <pointLight position={[0, 2, 3]} intensity={0.4} color="#3b82f6" />
-      
-      <Environment preset="city" background={false} />
-      <ContactShadows opacity={0.4} scale={10} blur={2.5} far={10} />
+      <directionalLight position={[10, 10, 5]} intensity={1} />
 
-      <Core />
-      <SoftwareProductsNode 
-        isHovered={hoveredNode === 'software'}
-        onHover={(hovered) => handleNodeHover('software', hovered)}
-        orbitAngle={orbitRef.current}
-      />
-      <MarketingServicesNode 
-        isHovered={hoveredNode === 'marketing'}
-        onHover={(hovered) => handleNodeHover('marketing', hovered)}
-        orbitAngle={orbitRef.current}
+      <Sparkles
+        count={150}
+        scale={15}
+        size={1.5}
+        speed={0.4}
+        opacity={0.2}
+        color="#ffffff"
       />
 
-      {/* Orbit rings */}
-      <mesh rotation={[Math.PI / 2.5, 0, 0]}>
-        <torusGeometry args={[3, 0.04, 8, 32]} />
-        <meshStandardMaterial 
-          color="#3b82f6" 
-          emissive="#3b82f6"
-          emissiveIntensity={0.2}
-          transparent
-          opacity={0.3}
-        />
-      </mesh>
+      <group ref={groupRef} rotation={[0.2, 0, 0]}>
+        <Core />
+        <SoftwareProductsNode setHovered={() => {}} />
+        <MarketingServicesNode setHovered={() => {}} />
 
-      <OrbitControls
-        autoRotate={!rotationPaused}
-        autoRotateSpeed={2}
-        enableZoom={false}
-        enablePan={false}
-        minPolarAngle={Math.PI / 3}
-        maxPolarAngle={Math.PI / 1.5}
-      />
+        {/* Expanded the faint background orbit rings to encompass the wider nodes */}
+        <Torus args={[5.5, 0.008, 16, 100]} rotation={[Math.PI / 2, 0, 0]}>
+          <meshBasicMaterial color="#ffffff" transparent opacity={0.08} />
+        </Torus>
+        <Torus
+          args={[5.5, 0.008, 16, 100]}
+          rotation={[Math.PI / 2, 0, 0]}
+          scale={[0.8, 0.8, 1]}
+        >
+          <meshBasicMaterial color="#ffffff" transparent opacity={0.04} />
+        </Torus>
+      </group>
     </>
-  )
+  );
 }
 
-export function HeroCanvas() {
+// ------------------------------------------------------------------
+// 5. Main Canvas Export
+// ------------------------------------------------------------------
+export default function HeroCanvas() {
   return (
-    <Canvas
-      camera={{ position: [0, 2, 5], fov: 50 }}
-      className="w-full h-full"
-      gl={{ 
-        antialias: false, 
-        alpha: true,
-        powerPreference: 'high-performance',
-        precision: 'lowp'
-      }}
-      dpr={[1, 1.5]}
-      performance={{ min: 0.5, max: 1 }}
-    >
-      <Scene />
-    </Canvas>
-  )
+    <div className="relative w-full h-full bg-transparent rounded-2xl z-50">
+      <Canvas
+        style={{ overflow: "visible" }}
+        gl={{
+          antialias: true,
+          alpha: true,
+          powerPreference: "high-performance",
+        }}
+        dpr={[1, 2]}
+        camera={{ position: [0, 0, 14], fov: 45 }}
+      >
+        <Suspense
+          fallback={
+            <Html center>
+              <div className="text-sm text-cyan-400 font-mono tracking-widest animate-pulse">
+                LOADING 3D...
+              </div>
+            </Html>
+          }
+        >
+          <OrbitControls enableZoom={false} enablePan={false} makeDefault />
+          <Scene />
+          <Preload all />
+        </Suspense>
+      </Canvas>
+    </div>
+  );
 }
