@@ -122,7 +122,7 @@ export function Hero({ language }: HeroProps) {
           </div>
 
           {/* Right side - 3D Canvas */}
-          <div className="hidden lg:block h-[500px] w-full overflow-visible bg-violet-800">
+          <div className="hidden lg:block h-[500px] w-full overflow-visible">
             <HeroCanvas />
           </div>
         </div>
