@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef, Suspense } from "react";
+import * as React from "react";
+import { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   Environment,
@@ -8,10 +9,11 @@ import {
   Float,
   Html,
   Preload,
-  MeshTransmissionMaterial,
   MeshWobbleMaterial,
   Sparkles,
   Torus,
+  AdaptiveDpr,
+  AdaptiveEvents,
 } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -22,23 +24,20 @@ function Core() {
   return (
     <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
       <mesh>
-        <sphereGeometry args={[1.8, 64, 64]} />
-        <MeshTransmissionMaterial
-          backside
-          backsideThickness={5}
-          thickness={2}
-          chromaticAberration={0.06}
-          anisotropy={0.5}
-          distortion={0.2}
-          distortionScale={0.3}
-          temporalDistortion={0.1}
+        <sphereGeometry args={[1.8, 32, 32]} />
+        <meshPhysicalMaterial
+          transmission={1}
+          thickness={1}
+          roughness={0.05}
+          ior={1.5}
           color="#ffffff"
           clearcoat={1}
-          clearcoatRoughness={0.1}
+          attenuationDistance={1}
+          attenuationColor="#ffffff"
         />
       </mesh>
       <mesh>
-        <sphereGeometry args={[0.8, 32, 32]} />
+        <sphereGeometry args={[0.8, 16, 16]} />
         <meshBasicMaterial color="#ffffff" opacity={0.8} transparent />
       </mesh>
     </Float>
@@ -48,11 +47,8 @@ function Core() {
 // ------------------------------------------------------------------
 // 2. Software Products Node
 // ------------------------------------------------------------------
-function SoftwareProductsNode({
-  setHovered,
-}: {
-  setHovered: (v: boolean) => void;
-}) {
+function SoftwareProductsNode() {
+  const [hovered, setHovered] = useState(false);
   const ref = useRef<THREE.Group>(null);
 
   useFrame((state) => {
@@ -64,16 +60,16 @@ function SoftwareProductsNode({
 
   return (
     <group
-      position={[-4.5, 1.5, 0]} // Pushed out further to the left
+      position={[-4.5, 1.5, 0]}
       ref={ref}
       onPointerOver={(e) => {
         e.stopPropagation();
         setHovered(true);
-        document.body.style.cursor = "pointer";
+        if (typeof document !== "undefined") document.body.style.cursor = "pointer";
       }}
       onPointerOut={() => {
         setHovered(false);
-        document.body.style.cursor = "auto";
+        if (typeof document !== "undefined") document.body.style.cursor = "auto";
       }}
     >
       <Float speed={3} rotationIntensity={1} floatIntensity={2}>
@@ -97,16 +93,18 @@ function SoftwareProductsNode({
           />
         </mesh>
 
-        <Html position={[0, -2, 0]} center style={{ zIndex: 100 }}>
-          <div className="bg-black/80 backdrop-blur-md border border-cyan-500/30 p-3 rounded-xl w-48 text-center shadow-[0_0_20px_rgba(6,182,212,0.2)] pointer-events-none">
-            <h3 className="font-bold text-cyan-400 text-xs tracking-widest uppercase mb-1">
-              Software
-            </h3>
-            <p className="text-[10px] text-gray-300 leading-tight">
-              Scalable SaaS & Digital Products
-            </p>
-          </div>
-        </Html>
+        {hovered && (
+          <Html position={[0, -2, 0]} center style={{ zIndex: 100 }}>
+            <div className="bg-black/80 backdrop-blur-md border border-cyan-500/30 p-3 rounded-xl w-48 text-center shadow-[0_0_20px_rgba(6,182,212,0.2)] pointer-events-none transition-opacity duration-300">
+              <h3 className="font-bold text-cyan-400 text-xs tracking-widest uppercase mb-1">
+                Software
+              </h3>
+              <p className="text-[10px] text-gray-300 leading-tight">
+                Scalable SaaS & Digital Products
+              </p>
+            </div>
+          </Html>
+        )}
       </Float>
     </group>
   );
@@ -115,11 +113,8 @@ function SoftwareProductsNode({
 // ------------------------------------------------------------------
 // 3. Marketing Services Node
 // ------------------------------------------------------------------
-function MarketingServicesNode({
-  setHovered,
-}: {
-  setHovered: (v: boolean) => void;
-}) {
+function MarketingServicesNode() {
+  const [hovered, setHovered] = useState(false);
   const outerRingRef = useRef<THREE.Mesh>(null);
   const innerRingRef = useRef<THREE.Mesh>(null);
 
@@ -135,15 +130,15 @@ function MarketingServicesNode({
 
   return (
     <group
-      position={[4.5, -1.5, 0]} // Pushed out further to the right
+      position={[4.5, -1.5, 0]}
       onPointerOver={(e) => {
         e.stopPropagation();
         setHovered(true);
-        document.body.style.cursor = "pointer";
+        if (typeof document !== "undefined") document.body.style.cursor = "pointer";
       }}
       onPointerOut={() => {
         setHovered(false);
-        document.body.style.cursor = "auto";
+        if (typeof document !== "undefined") document.body.style.cursor = "auto";
       }}
     >
       <Float speed={2} rotationIntensity={1} floatIntensity={2}>
@@ -176,16 +171,18 @@ function MarketingServicesNode({
           </mesh>
         </group>
 
-        <Html position={[0, -2, 0]} center style={{ zIndex: 100 }}>
-          <div className="bg-black/80 backdrop-blur-md border border-fuchsia-500/30 p-3 rounded-xl w-48 text-center shadow-[0_0_20px_rgba(217,70,239,0.2)] pointer-events-none">
-            <h3 className="font-bold text-fuchsia-400 text-xs tracking-widest uppercase mb-1">
-              Marketing
-            </h3>
-            <p className="text-[10px] text-gray-300 leading-tight">
-              Targeted Growth & Conversions
-            </p>
-          </div>
-        </Html>
+        {hovered && (
+          <Html position={[0, -2, 0]} center style={{ zIndex: 100 }}>
+            <div className="bg-black/80 backdrop-blur-md border border-fuchsia-500/30 p-3 rounded-xl w-48 text-center shadow-[0_0_20_rgba(217,70,239,0.2)] pointer-events-none transition-opacity duration-300">
+              <h3 className="font-bold text-fuchsia-400 text-xs tracking-widest uppercase mb-1">
+                Marketing
+              </h3>
+              <p className="text-[10px] text-gray-300 leading-tight">
+                Targeted Growth & Conversions
+              </p>
+            </div>
+          </Html>
+        )}
       </Float>
     </group>
   );
@@ -199,12 +196,12 @@ function Scene() {
 
   return (
     <>
-      <Environment preset="city" />
+      <Environment preset="city" resolution={128} />
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
 
       <Sparkles
-        count={150}
+        count={50}
         scale={15}
         size={1.5}
         speed={0.4}
@@ -214,10 +211,9 @@ function Scene() {
 
       <group ref={groupRef} rotation={[0.2, 0, 0]}>
         <Core />
-        <SoftwareProductsNode setHovered={() => {}} />
-        <MarketingServicesNode setHovered={() => {}} />
+        <SoftwareProductsNode />
+        <MarketingServicesNode />
 
-        {/* Expanded the faint background orbit rings to encompass the wider nodes */}
         <Torus args={[5.5, 0.008, 16, 100]} rotation={[Math.PI / 2, 0, 0]}>
           <meshBasicMaterial color="#ffffff" transparent opacity={0.08} />
         </Torus>
@@ -242,11 +238,13 @@ export default function HeroCanvas() {
       <Canvas
         style={{ overflow: "visible" }}
         gl={{
-          antialias: true,
+          antialias: false,
           alpha: true,
           powerPreference: "high-performance",
+          stencil: false,
+          depth: true,
         }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         camera={{ position: [0, 0, 14], fov: 45 }}
       >
         <Suspense
@@ -260,6 +258,8 @@ export default function HeroCanvas() {
         >
           <OrbitControls enableZoom={false} enablePan={false} makeDefault />
           <Scene />
+          <AdaptiveDpr pixelated />
+          <AdaptiveEvents />
           <Preload all />
         </Suspense>
       </Canvas>
