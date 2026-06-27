@@ -12,28 +12,6 @@ interface NavbarProps {
 export function Navbar({ language }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const isArabic = language === "ar";
-  const navRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (navRef.current) {
-        if (window.scrollY > 0) {
-          gsap.to(navRef.current, {
-            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
-            duration: 0.3,
-          });
-        } else {
-          gsap.to(navRef.current, {
-            boxShadow: "none",
-            duration: 0.3,
-          });
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const navLinks = isArabic
     ? [
@@ -54,21 +32,16 @@ export function Navbar({ language }: NavbarProps) {
       ];
 
   return (
-    <nav
-      ref={navRef}
-      className="sticky top-0 z-50 bg-background border-b border-border"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <nav className="fixed z-50  w-full flex flex-row justify-center items-center pt-5">
+      <div className="bg-backdrop backdrop-blur-md  rounded-full px-10 ">
+        <div className="flex justify-center items-center h-16 space-x-70">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <h1 className="text-xl font-bold tracking-tight text-foreground">
-              {COMPANY_NAME}
-            </h1>
+          <div>
+            <h1 className="text-xl  font-bold ">{COMPANY_NAME}</h1>
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -76,58 +49,10 @@ export function Navbar({ language }: NavbarProps) {
                 className="text-sm font-medium text-foreground hover:opacity-60 transition-opacity duration-200 relative group"
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-foreground group-hover:w-full transition-all duration-300" />
               </Link>
             ))}
           </div>
-
-          {/* Mobile Menu Button */}
-          <div className="flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 text-foreground hover:bg-secondary rounded transition-colors"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
-          </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden pb-4 space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="block px-3 py-2 text-sm font-medium text-foreground hover:bg-secondary rounded transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-        )}
       </div>
     </nav>
   );
