@@ -13,7 +13,7 @@ const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
 });
 
-const COMPANY_NAME = "Nexus Design Studio";
+const COMPANY_NAME = "Link Design Studio";
 
 export const metadata: Metadata = {
   title: `${COMPANY_NAME} | Software & Marketing Solutions`,

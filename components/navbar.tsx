@@ -10,26 +10,17 @@ interface NavbarProps {
 }
 
 export function Navbar({ language }: NavbarProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [index, setIndex] = useState<number>(0);
   const isArabic = language === "ar";
 
-  const navLinks = isArabic
-    ? [
-        { label: "الرئيسية", href: "/" },
-        { label: "الخدمات", href: "/services" },
-        { label: "من نحن", href: "/about" },
-        { label: "أعمالنا", href: "/portfolio" },
-        { label: "شهادات العملاء", href: "/testimonials" },
-        { label: "اتصل بنا", href: "/contact" },
-      ]
-    : [
-        { label: "Home", href: "/" },
-        { label: "Services", href: "/services" },
-        { label: "About", href: "/about" },
-        { label: "Portfolio", href: "/portfolio" },
-        { label: "Testimonials", href: "/testimonials" },
-        { label: "Contact", href: "/contact" },
-      ];
+  const navLinks = [
+    { index: 0, label: "Home", href: "/" },
+    { index: 1, label: "Services", href: "/services" },
+    { index: 2, label: "About", href: "/about" },
+    { index: 3, label: "Portfolio", href: "/portfolio" },
+    { index: 4, label: "Testimonials", href: "/testimonials" },
+    { index: 5, label: "Contact", href: "/contact" },
+  ];
 
   return (
     <nav className="fixed z-50  w-full flex flex-row justify-center items-center pt-5">
@@ -37,18 +28,25 @@ export function Navbar({ language }: NavbarProps) {
         <div className="flex justify-center items-center h-16 space-x-70">
           {/* Logo */}
           <div>
-            <h1 className="text-xl  font-bold ">{COMPANY_NAME}</h1>
+            <Link className="text-xl font-bold " href="/">
+              {COMPANY_NAME}
+            </Link>
           </div>
 
           {/* Desktop Menu */}
           <div className="flex items-center space-x-8">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-foreground hover:opacity-60 transition-opacity duration-200 relative group"
-              >
-                {link.label}
+              <Link href={link.href} className="text-sm font-medium group">
+                <div
+                  key={link.href}
+                  className={`${
+                    index === link.index
+                      ? "border-2 px-3 py-[5px] rounded-[50px] border-white"
+                      : "hover:border-2 group-hover:px-3 group-hover:py-[5px] rounded-[50px] border-white transition-all duration-200"
+                  }`}
+                >
+                  {link.label}
+                </div>
               </Link>
             ))}
           </div>

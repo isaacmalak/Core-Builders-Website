@@ -1,4 +1,4 @@
-export const COMPANY_NAME = 'Nexus Design Studio'
+export const COMPANY_NAME = 'Link Design Studio'
 
 export const translations = {
   en: {
