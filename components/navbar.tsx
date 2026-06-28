@@ -36,9 +36,13 @@ export function Navbar({ language }: NavbarProps) {
           {/* Desktop Menu */}
           <div className="flex items-center space-x-8">
             {navLinks.map((link) => (
-              <Link href={link.href} className="text-sm font-medium group">
+              <Link
+                href={link.href}
+                className="text-sm font-medium group"
+                key={link.index}
+                onClick={() => setIndex(link.index)}
+              >
                 <div
-                  key={link.href}
                   className={`${
                     index === link.index
                       ? "border-2 px-3 py-[5px] rounded-[50px] border-white"

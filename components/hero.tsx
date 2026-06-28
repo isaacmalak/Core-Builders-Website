@@ -20,6 +20,11 @@ export function Hero() {
           waveAmplitude: 1.0,
         }}
       />
+      <div className="grid grid-cols-2 px-5 ">
+        <h1 className="text-5xl md:text-6xl font-bold text-white z-10 text-center">
+          Welcome to Link Design Studio
+        </h1>
+      </div>
     </section>
   );
 }
