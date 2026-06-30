@@ -4,7 +4,7 @@ import { Vanta } from "vanta-react";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden ">
+    <section className="relative min-h-screen flex items-center justify-start overflow-hidden ">
       <Vanta
         effect="cells"
         loadingComponent={<LoadingHero />}
@@ -17,13 +17,25 @@ export function Hero() {
           spacing: 20.0,
           showLines: true,
           waveSpeed: 1.0,
-          waveAmplitude: 1.0,
+          waveAmplitude: 3.0,
         }}
       />
-      <div className="grid grid-cols-2 px-5 ">
-        <h1 className="text-5xl md:text-6xl font-bold text-white z-10 text-center">
-          Welcome to Link Design Studio
-        </h1>
+      <div className="grid grid-cols-2 px-5  z-19 w-full">
+        <div className="flex flex-col justify-center items-start gap-5 z-10 ">
+          <h1
+            className={`text-6xl font-bold text-white  leading-tight font-[family-name:var(--font-space-grotesk)] text-start `}
+          >
+            Welcome to <br />
+            Link{" "}
+            <span className="font-[family-name:var(--font-playfair-display)] italic bg-cyan-400/30 text-white px-2 rounded-xl ">
+              Design
+            </span>{" "}
+            Studio
+          </h1>
+        </div>
+      </div>
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
+        <p className="text-white text-lg ">Link your business to the future</p>
       </div>
     </section>
   );

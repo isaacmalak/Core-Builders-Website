@@ -21,12 +21,26 @@ export function Navbar({ language }: NavbarProps) {
     { index: 4, label: "Testimonials", href: "/testimonials" },
     { index: 5, label: "Contact", href: "/contact" },
   ];
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    handleScroll(); // Set initial state
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <nav className="fixed z-50  w-full flex flex-row justify-center items-center pt-5">
-      <div className="bg-backdrop backdrop-blur-md  rounded-full px-10  shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] border  ">
+      <div className="bg-backdrop backdrop-blur-md  rounded-full px-10  shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] border ">
         <div className="flex justify-center items-center h-16 space-x-70">
           {/* Logo */}
+
           <div>
             <Link className="text-xl font-bold " href="/">
               {COMPANY_NAME}
