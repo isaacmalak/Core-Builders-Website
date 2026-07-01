@@ -38,7 +38,7 @@ export function Navbar({ language }: NavbarProps) {
   return (
     <nav className="fixed z-50  w-full flex flex-row justify-center items-center pt-5">
       <div className="bg-backdrop backdrop-blur-md  rounded-full px-10  shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] border ">
-        <div className="flex justify-center items-center h-16 space-x-70">
+        <div className="flex justify-center items-center h-16 space-x-70 text-white ">
           {/* Logo */}
 
           <div>
@@ -52,15 +52,15 @@ export function Navbar({ language }: NavbarProps) {
             {navLinks.map((link) => (
               <Link
                 href={link.href}
-                className="text-sm font-medium group"
+                className="text-sm font-medium group "
                 key={link.index}
                 onClick={() => setIndex(link.index)}
               >
                 <div
                   className={`${
                     index === link.index
-                      ? "border-2 px-3 py-[5px] rounded-[50px] border-white"
-                      : "hover:border-2 group-hover:px-3 group-hover:py-[5px] rounded-[50px] border-white transition-all duration-200"
+                      ? "border-2 px-3 py-[5px] rounded-[50px] border-white "
+                      : "hover:border-2 group-hover:px-3 group-hover:py-[5px] rounded-[50px] border-white transition-all  stroke-1 stroke-cyan-800 duration-200"
                   }`}
                 >
                   {link.label}
