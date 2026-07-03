@@ -24,10 +24,10 @@ export function Hero() {
         }}
       />
       <div className="flex flex-col z-10 justify-center items-center ">
-        <h1 className="text-5xl font-bold text-white leading-tight text-center">
+        <h1 className=" text-5xl font-bold text-white leading-tight text-center">
           Welcome to <br />
-          Link{" "}
-          <span className="italic bg-cyan-400/30 px-2 rounded-xl font-[Playfair_Display]">
+          <span className="pl-4">Link </span>
+          <span className="italic backdrop-blur-lg px-4 py-1 rounded-xl font-[Playfair_Display]">
             Design
           </span>{" "}
           Studio
@@ -37,8 +37,8 @@ export function Hero() {
         </h2>
         <Link href="/contact" className="flex items-center gap-2">
           <Button
-            className="text-3xl py-6  text-[#00FFFF]/50"
-            variant={"ghost"}
+            className="text-3xl py-8 px-4 bg-backdrop backdrop-blur-lg rounded-3xl hover:bg-black/80 transition-colors duration-300 text-white font-bold"
+            variant={"default"}
           >
             Meet with us
           </Button>

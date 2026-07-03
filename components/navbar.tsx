@@ -37,7 +37,7 @@ export function Navbar({ language }: NavbarProps) {
 
   return (
     <nav className="fixed z-50  w-full flex flex-row justify-center items-center pt-5">
-      <div className="bg-backdrop backdrop-blur-md  rounded-full px-10  shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] border ">
+      <div className="bg-backdrop backdrop-blur-md  rounded-full px-10  shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)]  ">
         <div className="flex justify-center items-center h-16 space-x-70 text-white ">
           {/* Logo */}
 
