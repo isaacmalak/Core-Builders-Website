@@ -17,7 +17,7 @@ const spaceGrotesk = Space_Grotesk({
 const playfair = Playfair_Display({
   variable: "--font-playfair-display",
   subsets: ["latin"],
-  style: ["italic"],
+  style: ["italic", "normal"],
 });
 
 const COMPANY_NAME = "Link Design Studio";
