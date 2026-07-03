@@ -75,7 +75,7 @@ export function Globe() {
       onTouchEnd={handlePointerUp}
       onTouchMove={handleTouchMove}
       style={{ width: 600, height: 600, cursor: "grab", touchAction: "none" }}
-      className="absolute right-10 top-1/2 -translate-y-1/2 z-10"
+      className=" z-10"
     />
   );
 }
