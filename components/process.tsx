@@ -53,7 +53,7 @@ export function Process() {
           }
         );
       });
-
+      // Don't touch it, it just works.
       if (lineRef.current && sectionRef.current) {
         gsap.fromTo(
           lineRef.current,
@@ -63,19 +63,11 @@ export function Process() {
             ease: "none",
             scrollTrigger: {
               trigger: sectionRef.current,
-              start: () => {
-                const rect = sectionRef.current!.getBoundingClientRect();
-                const sectionTop = rect.top + window.scrollY;
-                return sectionTop + rect.height * 0.25;
-              },
-              end: () => {
-                const rect = sectionRef.current!.getBoundingClientRect();
-                const sectionTop = rect.top + window.scrollY;
-                return sectionTop + rect.height * 0.5;
-              },
+              start: "25% bottom",
+              end: "0% top",
               scrub: 0.6,
               invalidateOnRefresh: true,
-              markers: true, // TEMP — remove once you confirm it's firing where expected
+              markers: true, // remove once confirmed
             },
           }
         );
@@ -88,7 +80,7 @@ export function Process() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-background overflow-hidden"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-background overflow-hidden "
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-16">
