@@ -17,9 +17,8 @@ export default function Home() {
   return (
     <RouteTransition key="home">
       <Hero />
-      <Services language={language} />
+      <Services />
       <Vision />
-      <Portfolio language={language} />
       <Process language={language} />
       <About language={language} />
       <Testimonials language={language} />
