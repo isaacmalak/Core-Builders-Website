@@ -19,9 +19,7 @@ export default function Home() {
       <Hero />
       <Services />
       <Vision />
-      <Process language={language} />
-      <About language={language} />
-      <Testimonials language={language} />
+      <Process />
       <Contact language={language} />
     </RouteTransition>
   );
