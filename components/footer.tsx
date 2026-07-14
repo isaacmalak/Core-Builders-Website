@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { COMPANY_NAME } from "@/lib/translations";
 import { ArrowUp, Mail, Phone, MapPin, Check } from "lucide-react";
 
@@ -287,7 +288,7 @@ export function Footer({ language }: FooterProps) {
                 { en: "Contact", ar: "اتصل بنا", href: "/contact" },
               ].map((item, idx) => (
                 <li key={idx}>
-                  <a
+                  <Link
                     href={item.href}
                     className={`text-neutral-400 hover:text-white transition-colors duration-200 flex items-center gap-1 group ${
                       isArabic ? "font-arabic" : ""
@@ -295,7 +296,7 @@ export function Footer({ language }: FooterProps) {
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 scale-0 group-hover:scale-100 transition-transform duration-200" />
                     <span>{isArabic ? item.ar : item.en}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

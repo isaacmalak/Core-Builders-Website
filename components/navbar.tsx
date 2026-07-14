@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { COMPANY_NAME } from "@/lib/translations";
 
@@ -10,7 +11,7 @@ interface NavbarProps {
 }
 
 export function Navbar({ language }: NavbarProps) {
-  const [index, setIndex] = useState<number>(0);
+  const pathname = usePathname();
   const isArabic = language === "ar";
 
   const navLinks = [
@@ -54,11 +55,10 @@ export function Navbar({ language }: NavbarProps) {
                 href={link.href}
                 className="text-sm font-medium group "
                 key={link.index}
-                onClick={() => setIndex(link.index)}
               >
                 <div
                   className={`${
-                    index === link.index
+                    pathname === link.href
                       ? "border-2 px-3 py-[5px] rounded-[50px] border-white "
                       : "hover:border-2 group-hover:px-3 group-hover:py-[5px] rounded-[50px] border-white transition-all  stroke-1 stroke-cyan-800 duration-200"
                   }`}
