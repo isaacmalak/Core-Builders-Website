@@ -38,24 +38,24 @@ export function Navbar({ language }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // useEffect(() => {
-  //   setIsMenuOpen(false);
-  // }, [pathname]);
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
 
   return (
     <nav className="fixed z-50 w-full flex flex-col items-center pt-5 px-4">
-      <div className="w-full max-w-max bg-backdrop backdrop-blur-md rounded-[28px] lg:rounded-full px-6 lg:px-10 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)]">
-        <div className="flex justify-between lg:justify-center items-center gap-10 lg:gap-0 h-16 lg:space-x-70 text-white">
+      <div className=" flex flex-col bg-backdrop backdrop-blur-md rounded-[25px] md:rounded-full px-6 lg:px-10  ">
+        <div className="flex flex-row gap-5 md:gap-10 lg:gap-70 h-16 text-white">
           {/* Logo */}
 
-          <div>
-            <Link className="text-xl font-bold" href="/">
+          <div className="flex items-center justify-center md:text-center">
+            <Link className="text-sm lg:text-xl font-bold" href="/">
               {COMPANY_NAME}
             </Link>
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
                 href={link.href}
@@ -74,11 +74,11 @@ export function Navbar({ language }: NavbarProps) {
               </Link>
             ))}
           </div>
-
+          <div className="md:hidden flex items-center w-20" />
           {/* Mobile Menu Toggle */}
           <button
             type="button"
-            className="lg:hidden flex items-center justify-center text-white"
+            className="md:hidden flex items-center justify-center text-white"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
             onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -89,11 +89,11 @@ export function Navbar({ language }: NavbarProps) {
 
         {/* Mobile Menu */}
         <div
-          className={`lg:hidden overflow-hidden transition-all duration-300 ${
+          className={`md:hidden overflow-hidden transition-all duration-300 ${
             isMenuOpen ? "max-h-96 pb-6" : "max-h-0"
           }`}
         >
-          <div className="flex flex-col items-start gap-2 pt-2">
+          <div className="md:hidden flex flex-col items-start gap-2 pt-2">
             {navLinks.map((link) => (
               <Link
                 href={link.href}

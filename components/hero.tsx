@@ -7,11 +7,11 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative lg:min-h-screen flex items-center justify-center overflow-hidden">
       <Vanta
         effect="cells"
         loadingComponent={<LoadingHero />}
-        className="absolute "
+        className="absolute"
         options={{
           backgroundColor: 0x000000,
           size: 1.5,
@@ -23,7 +23,7 @@ export function Hero() {
           waveAmplitude: 3,
         }}
       />
-      <div className="flex flex-col z-10 justify-center items-center ">
+      <div className="flex flex-col z-10 justify-center items-center py-[100px] md:py-[200px] lg:py-0 ">
         <h1 className=" text-5xl font-bold text-white leading-tight text-center">
           Welcome to <br />
           <span className="pl-4">Link </span>

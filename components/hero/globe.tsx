@@ -1,7 +1,11 @@
 import createGlobe from "cobe";
 import { useEffect, useRef } from "react";
 
-export function Globe() {
+interface GlobeProps {
+  className?: string;
+}
+
+export function Globe({ className = "w-[300px]" }: GlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const pointerInteracting = useRef<number | null>(null);
   const phiRef = useRef(0);
@@ -10,10 +14,21 @@ export function Globe() {
     if (!canvasRef.current) return;
     const dpr = window.devicePixelRatio || 1;
 
+    // Track the canvas's actual rendered box size so the globe's internal
+    // buffer/projection always matches it 1:1 — a mismatch here is what
+    // makes cobe clip the sphere against its buffer edges (looks like a
+    // right-angle slice cut out of the circle).
+    let width = canvasRef.current.offsetWidth;
+
+    const onResize = () => {
+      if (canvasRef.current) width = canvasRef.current.offsetWidth;
+    };
+    window.addEventListener("resize", onResize);
+
     const globe = createGlobe(canvasRef.current, {
       devicePixelRatio: dpr,
-      width: 600 * dpr,
-      height: 600 * dpr,
+      width: width * dpr,
+      height: width * dpr,
       phi: 0,
       theta: 0,
       dark: 1, // 0-1 range, 1 = dark ocean/land
@@ -32,10 +47,15 @@ export function Globe() {
           phiRef.current += 0.003;
         }
         state.phi = phiRef.current;
+        state.width = width * dpr;
+        state.height = width * dpr;
       },
     });
 
-    return () => globe.destroy();
+    return () => {
+      window.removeEventListener("resize", onResize);
+      globe.destroy();
+    };
   }, []);
 
   const handlePointerDown = (e: React.PointerEvent) => {
@@ -74,8 +94,8 @@ export function Globe() {
       }}
       onTouchEnd={handlePointerUp}
       onTouchMove={handleTouchMove}
-      style={{ width: 600, height: 600, cursor: "grab", touchAction: "none" }}
-      className=" z-10"
+      style={{ cursor: "grab", touchAction: "none" }}
+      className={`z-10 aspect-square mx-auto ${className}`}
     />
   );
 }
