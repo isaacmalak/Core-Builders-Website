@@ -47,10 +47,10 @@ const services = [
 
 export function Services() {
   return (
-    <section className="bg-[#FAFAF8] py-32">
+    <section className="bg-[#FAFAF8] py-16 md:py-32">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="mb-16 flex flex-col gap-6 border-b border-[#D8D6D0] pb-16 md:flex-row md:items-end md:justify-between">
-          <h2 className=" font-serif text-4xl leading-tight text-[#0A0A09] md:text-5xl">
+        <div className="mb-10 flex flex-col gap-6 border-b border-[#D8D6D0] pb-10 md:mb-16 md:flex-row md:items-end md:justify-between md:pb-16">
+          <h2 className=" font-serif text-2xl leading-tight text-[#0A0A09] md:text-4xl">
             Everything your business needs to launch and grow.
           </h2>
           <p className=" text-sm leading-relaxed text-[#6B6A65]">
@@ -59,18 +59,18 @@ export function Services() {
           </p>
         </div>
 
-        <div className="grid auto-rows-[200px] grid-cols-1 gap-px overflow-hidden border border-[#D8D6D0] bg-[#D8D6D0] md:grid-cols-6">
+        <div className="grid grid-cols-1 gap-px overflow-hidden border border-[#D8D6D0] bg-[#D8D6D0] md:auto-rows-[200px] md:grid-cols-6">
           {services.map((service) => (
             <div
               key={service.title}
-              className={`group flex flex-col justify-between bg-[#FAFAF8] p-8 transition-colors duration-300 hover:bg-white ${service.className}`}
+              className={`group flex flex-col justify-between gap-4 bg-[#FAFAF8] p-6 transition-colors duration-300 hover:bg-white md:p-8 ${service.className}`}
             >
               <span className="text-xs uppercase tracking-[0.15em] text-[#9B9A94]">
                 {service.tag}
               </span>
 
               <div>
-                <h3 className="font-serif text-3xl text-[#0A0A09] transition-transform group-hover:-skew-x-20  duration-500  md:text-4xl">
+                <h3 className="font-serif text-xl text-[#0A0A09] transition-transform group-hover:-skew-x-20  duration-500 md:text-2xl lg:text-3xl">
                   {service.title}
                 </h3>
                 <p className="mt-3 max-w-sm text-[15px] leading-relaxed text-[#6B6A65]">
