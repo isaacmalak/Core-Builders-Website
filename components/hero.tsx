@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export function Hero() {
   return (
-    <section className="relative lg:min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[94vh] lg:min-h-screen flex items-center justify-center overflow-hidden">
       <Vanta
         effect="cells"
         loadingComponent={<LoadingHero />}
@@ -24,7 +24,7 @@ export function Hero() {
         }}
       />
       <div className="flex flex-col z-10 justify-center items-center py-[100px] md:py-[200px] lg:py-0 ">
-        <h1 className=" text-5xl font-bold text-white leading-tight text-center">
+        <h1 className=" text-3xl lg:text-5xl font-bold text-white leading-tight text-center">
           Welcome to <br />
           <span className="pl-4">Link </span>
           <span className="italic backdrop-blur-lg px-4 py-1 rounded-xl font-[Playfair_Display]">
@@ -32,12 +32,12 @@ export function Hero() {
           </span>{" "}
           Studio
         </h1>
-        <h2 className="text-5xl text-white  my-6 text-center leading-tight font-[Playfair_Display] tracking-wide ">
+        <h2 className=" md:px-0 px-10 text-2xl lg:text-5xl text-white  my-6 text-center leading-tight font-[Playfair_Display] tracking-wide ">
           Websites and apps that actually convert
         </h2>
         <Link href="/contact" className="flex items-center gap-2">
           <Button
-            className="text-3xl py-8 px-4 bg-backdrop backdrop-blur-lg rounded-3xl hover:bg-black/80 transition-colors duration-300 text-white font-bold"
+            className="md:text-3xl md:py-8 md:px-4 bg-backdrop backdrop-blur-lg rounded-3xl hover:bg-black/80 transition-colors duration-300 text-white font-bold"
             variant={"default"}
           >
             Meet with us
