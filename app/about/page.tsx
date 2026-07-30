@@ -1,15 +1,12 @@
-'use client'
+"use client";
 
-import { About } from '@/components/about'
-import { RouteTransition } from '@/components/route-transition'
-import { useLanguage } from '@/lib/language-context'
+import { AboutPage as AboutPageContent } from "@/app/about/about-page";
+import { RouteTransition } from "@/components/route-transition";
 
 export default function AboutPage() {
-  const { language } = useLanguage()
-
   return (
     <RouteTransition key="about">
-      <About language={language} />
+      <AboutPageContent />
     </RouteTransition>
-  )
+  );
 }
