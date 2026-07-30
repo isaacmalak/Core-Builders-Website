@@ -5,7 +5,7 @@ import { ServicesMobile } from "./services/services-mobile";
 
 export function Services() {
   return (
-    <section className="bg-[#FAFAF8] md:pt-20 pt-30  ">
+    <section className="bg-[#FAFAF8] pt-8 md:pt-10  ">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-10 ex flex-col gap-6 border-b border-[#D8D6D0] pb-10 md:mb-16 md:items-start md:justify-between ">
           <h2 className=" font-serif text-2xl leading-tight text-[#0A0A09] md:text-4xl">

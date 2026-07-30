@@ -162,6 +162,49 @@
     @apply cursor-pointer;
   }
 
+  /* Section divider — light pulse travelling along the ruler ticks */
+  .seam-sweep {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 40%,
+      #000 50%,
+      transparent 60%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 40%,
+      #000 50%,
+      transparent 60%
+    );
+    -webkit-mask-size: 260% 100%;
+    mask-size: 260% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    animation: seam-sweep 4.5s linear infinite;
+  }
+
+  .seam-sweep-reverse {
+    animation-direction: reverse;
+  }
+
+  @keyframes seam-sweep {
+    from {
+      -webkit-mask-position: 0% 0;
+      mask-position: 0% 0;
+    }
+    to {
+      -webkit-mask-position: 100% 0;
+      mask-position: 100% 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .seam-sweep {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
   /* Subtle background patterns */
   .pattern-dots {
     background-image: radial-gradient(
