@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { Menu, X } from "lucide-react";
 import { COMPANY_NAME } from "@/lib/translations";
+import { cn } from "@/lib/utils";
 
 interface NavbarProps {
   language: "en" | "ar";
@@ -19,9 +20,8 @@ export function Navbar({ language }: NavbarProps) {
     { index: 0, label: "Home", href: "/" },
     { index: 1, label: "Services", href: "/services" },
     { index: 2, label: "About", href: "/about" },
-    { index: 3, label: "Portfolio", href: "/portfolio" },
-    { index: 4, label: "Testimonials", href: "/testimonials" },
-    { index: 5, label: "Contact", href: "/contact" },
+    // { index: 3, label: "Portfolio", href: "/portfolio" },
+    { index: 3, label: "Contact", href: "/contact" },
   ];
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -59,15 +59,21 @@ export function Navbar({ language }: NavbarProps) {
             {navLinks.map((link) => (
               <Link
                 href={link.href}
-                className="text-sm font-medium group "
+                className="text-sm font-medium group"
                 key={link.index}
               >
+                {/* The pill always carries its 2px border (transparent when
+                    idle) so hovering animates padding and color only, never
+                    border-width, which would snap the width open. */}
                 <div
-                  className={`${
+                  className={cn(
+                    "rounded-[50px] border-2 py-[5px] ",
+                    "transition-[padding,border-color,background-color] duration-300 ease-out",
+                    "motion-reduce:transition-none",
                     pathname === link.href
-                      ? "border-2 px-3 py-[5px] rounded-[50px] border-white "
-                      : "hover:border-2 group-hover:px-3 group-hover:py-[5px] rounded-[50px] border-white transition-all  stroke-1 stroke-cyan-800 duration-200"
-                  }`}
+                      ? "border-white px-3"
+                      : "border-transparent px-0 group-hover:border-white group-hover:bg-white/10 group-hover:px-3"
+                  )}
                 >
                   {link.label}
                 </div>
@@ -101,11 +107,14 @@ export function Navbar({ language }: NavbarProps) {
                 key={link.index}
               >
                 <div
-                  className={`w-full px-3 py-2 rounded-[50px] ${
+                  className={cn(
+                    "w-full rounded-[50px] border-2 px-3 py-2",
+                    "transition-[border-color,background-color] duration-300 ease-out",
+                    "motion-reduce:transition-none",
                     pathname === link.href
-                      ? "border-2 border-white"
-                      : "border-2 border-transparent"
-                  }`}
+                      ? "border-white bg-white/10"
+                      : "border-transparent"
+                  )}
                 >
                   {link.label}
                 </div>

@@ -3,7 +3,7 @@ import { Globe } from "../hero/globe";
 export function VisionMobile() {
   return (
     <section className="flex md:hidden w-full flex-col items-center justify-center gap-6 px-6 py-16 text-center">
-      <h1 className="text-4xl font-extrabold tracking-wider absolute text-start top-5 left-6">
+      <h1 className="text-4xl font-extrabold tracking-wider  text-center ">
         Our Vision
       </h1>
 
