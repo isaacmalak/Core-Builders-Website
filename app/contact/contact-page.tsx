@@ -4,6 +4,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { GradientBackground } from "@/components/gradient-background";
 import { ContactCard } from "@/components/contact/contact-card";
 import { SocialRow } from "@/components/contact/social-row";
 import {
@@ -57,14 +58,11 @@ export function ContactPage() {
   }, []);
 
   return (
-    <div
-      ref={rootRef}
-      className="min-h-screen  bg-linear-to-b from-[#F2F7F3] via-[#E7F0E9] to-[#DAE8DE]"
-    >
-      <section className="mx-auto max-w-3xl px-6 pt-32 pb-24 md:pt-40 md:pb-32">
+    <GradientBackground ref={rootRef}>
+      <section className="mx-auto max-w-3xl px-6 pt-32 pb-20 md:pt-35 md:pb-16">
         {/* Header */}
         <div ref={introRef} className="flex flex-col gap-6">
-          <h1 className="font-serif text-5xl leading-[1.02] text-[#0A0A09] md:text-7xl">
+          <h1 className="font-serif text-5xl leading-[1.02] text-[#0A0A09] md:text-6xl">
             Contact{" "}
             <span className="relative inline-block text-[#0E7490] italic">
               Us
@@ -77,7 +75,7 @@ export function ContactPage() {
         </div>
 
         {/* Direct contact */}
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 md:mt-14">
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:mt-10">
           {contactMethods.map((method, index) => (
             <ContactCard
               key={method.label}
@@ -96,7 +94,7 @@ export function ContactPage() {
         {/* Social */}
         <h2
           id="social-heading"
-          className="mt-12 flex items-center gap-3 text-xs font-medium tracking-[0.18em] text-[#6B6A65] uppercase md:mt-16"
+          className="mt-10 flex items-center gap-3 text-xs font-medium tracking-[0.18em] text-[#6B6A65] uppercase md:mt-7"
         >
           Contact us on social media
           <span aria-hidden="true" className="h-px flex-1 bg-[#0A0A09]/10" />
@@ -121,6 +119,6 @@ export function ContactPage() {
           ))}
         </ul>
       </section>
-    </div>
+    </GradientBackground>
   );
 }

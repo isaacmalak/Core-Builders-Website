@@ -33,7 +33,7 @@ export function ContactCard({
       ref={onRef}
       href={href}
       style={{ "--accent": accent } as CSSProperties}
-      className="group relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-[#0A0A09]/[0.07] bg-white p-4 transition-transform duration-300 ease-out hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A0A09] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:gap-5 sm:p-5"
+      className="group relative flex flex-col gap-3.5 overflow-hidden rounded-3xl border border-[#0A0A09]/[0.07] bg-white p-4 transition-transform duration-300 ease-out hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0A0A09] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
     >
       {/* Brand wash, revealed on hover */}
       <span
@@ -54,7 +54,7 @@ export function ContactCard({
 
       <span
         aria-hidden="true"
-        className="relative flex size-10 items-center justify-center rounded-2xl bg-[#0A0A09] text-white transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:rotate-0 motion-reduce:group-hover:scale-100 [&_svg]:size-[18px] sm:size-11 sm:[&_svg]:size-5"
+        className="relative flex size-10 items-center justify-center rounded-2xl bg-[#0A0A09] text-white transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:rotate-0 motion-reduce:group-hover:scale-100 [&_svg]:size-[18px]"
       >
         {icon}
       </span>
