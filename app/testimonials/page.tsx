@@ -2,6 +2,7 @@
 
 import { Testimonials } from '@/components/testimonials'
 import { RouteTransition } from '@/components/route-transition'
+import { GradientBackground } from '@/components/gradient-background'
 import { useLanguage } from '@/lib/language-context'
 
 export default function TestimonialsPage() {
@@ -9,7 +10,9 @@ export default function TestimonialsPage() {
 
   return (
     <RouteTransition key="testimonials">
-      <Testimonials language={language} />
+      <GradientBackground>
+        <Testimonials language={language} />
+      </GradientBackground>
     </RouteTransition>
   )
 }

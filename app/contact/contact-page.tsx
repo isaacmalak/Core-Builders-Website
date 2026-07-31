@@ -15,7 +15,7 @@ import {
 gsap.registerPlugin(ScrollTrigger);
 
 export function ContactPage() {
-  const rootRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<HTMLElement[]>([]);
 
@@ -58,8 +58,11 @@ export function ContactPage() {
   }, []);
 
   return (
-    <GradientBackground ref={rootRef}>
-      <section className="mx-auto max-w-3xl px-6 pt-32 pb-20 md:pt-35 md:pb-16">
+    <GradientBackground>
+      <section
+        ref={rootRef}
+        className="mx-auto max-w-3xl px-6 pt-32 pb-20 md:pt-35 md:pb-16"
+      >
         {/* Header */}
         <div ref={introRef} className="flex flex-col gap-6">
           <h1 className="font-serif text-5xl leading-[1.02] text-[#0A0A09] md:text-6xl">

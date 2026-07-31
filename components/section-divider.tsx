@@ -13,7 +13,11 @@ type SectionDividerProps = {
   /** Small ordinal shown before the label, e.g. "02". */
   index: string;
   label: string;
-  /** Background of the section above — the divider fades from it. */
+  /**
+   * Background of the section above — the divider fades from it. Defaults to
+   * transparent so the page background (see GradientBackground) shows through;
+   * only pass a colour when the neighbouring section paints its own.
+   */
   from?: string;
   /** Background of the section below — the divider fades into it. */
   to?: string;
@@ -25,8 +29,8 @@ type SectionDividerProps = {
 export function SectionDivider({
   index,
   label,
-  from = "#FFFFFF",
-  to = "#FFFFFF",
+  from = "transparent",
+  to = "transparent",
   ink = "#0A0A09",
   className,
 }: SectionDividerProps) {

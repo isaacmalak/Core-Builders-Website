@@ -80,7 +80,7 @@ export function Process() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 px-4 sm:px-6 lg:px-8 bg-background overflow-hidden "
+      className="py-24 px-4 sm:px-6 lg:px-8 overflow-hidden "
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-16">

@@ -31,14 +31,14 @@ export interface SocialChannel {
 export const contactMethods: ContactMethod[] = [
   {
     label: "Call us",
-    meta: "Our team is on the line · Mon–Fri · 9–17",
-    href: "tel:+15551234567",
+    meta: "Our team is on the line ·24/7",
+    href: "tel:+201210869350",
     icon: <Phone strokeWidth={2.25} />,
     accent: "#2E9E6B",
   },
   {
     label: "Email us",
-    meta: "Our team is online · Mon–Fri · 9–17",
+    meta: "Our team is online ·24/7",
     href: "mailto:hello@linkdesignstudio.com",
     icon: <Mail strokeWidth={2.25} />,
     accent: "#0E7490",
@@ -54,12 +54,6 @@ export const socialChannels: SocialChannel[] = [
     accent: "#E1306C",
     badge:
       "radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%)",
-  },
-  {
-    name: "Telegram",
-    href: "https://telegram.org",
-    icon: <SiTelegram />,
-    accent: "#229ED9",
   },
   {
     name: "Facebook",

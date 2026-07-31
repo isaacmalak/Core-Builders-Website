@@ -2,6 +2,7 @@
 
 import { Portfolio } from '@/components/portfolio'
 import { RouteTransition } from '@/components/route-transition'
+import { GradientBackground } from '@/components/gradient-background'
 import { useLanguage } from '@/lib/language-context'
 
 export default function PortfolioPage() {
@@ -9,7 +10,9 @@ export default function PortfolioPage() {
 
   return (
     <RouteTransition key="portfolio">
-      <Portfolio language={language} />
+      <GradientBackground>
+        <Portfolio language={language} />
+      </GradientBackground>
     </RouteTransition>
   )
 }

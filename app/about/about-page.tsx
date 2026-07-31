@@ -10,6 +10,7 @@ import {
   principles,
   stats,
 } from "../../components/about/about-data";
+import { GradientBackground } from "@/components/gradient-background";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,7 +40,7 @@ function Mark({ children }: { children: React.ReactNode }) {
 }
 
 export function AboutPage() {
-  const rootRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
   const rowsRef = useRef<HTMLElement[]>([]);
   const blocksRef = useRef<HTMLElement[]>([]);
 
@@ -82,9 +83,12 @@ export function AboutPage() {
   }, []);
 
   return (
-    <div ref={rootRef} className="bg-[#FAFAF8]">
+    <GradientBackground>
       {/* Intro */}
-      <section className="mx-auto max-w-6xl px-6 pt-32 pb-16 md:pt-40 md:pb-24">
+      <section
+        ref={rootRef}
+        className="mx-auto max-w-6xl px-6 pt-32 pb-16 md:pt-40 md:pb-24"
+      >
         <div className="about-intro flex flex-col gap-6">
           <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#9B9A94]">
             About
@@ -278,6 +282,6 @@ export function AboutPage() {
           </Link>
         </div>
       </section>
-    </div>
+    </GradientBackground>
   );
 }

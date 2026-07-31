@@ -1,16 +1,17 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { services } from "../../components/services/services-data";
 import { useGSAP } from "@gsap/react";
+import { GradientBackground } from "@/components/gradient-background";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function ServicesPage() {
-  const rootRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
   const rowsRef = useRef<HTMLElement[]>([]);
 
   useGSAP(() => {
@@ -52,9 +53,12 @@ export function ServicesPage() {
   }, []);
 
   return (
-    <div ref={rootRef} className="bg-[#FAFAF8]">
+    <GradientBackground>
       {/* Intro */}
-      <section className="mx-auto max-w-6xl px-6 pt-32 pb-16 md:pt-40 md:pb-24">
+      <section
+        ref={rootRef}
+        className="mx-auto max-w-6xl px-6 pt-32 pb-16 md:pt-40 md:pb-24"
+      >
         <div className="services-intro flex flex-col gap-6">
           <span className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.2em] text-[#9B9A94]">
             Services
@@ -97,7 +101,7 @@ export function ServicesPage() {
               className="group grid grid-cols-1 gap-8 border-b border-[#D8D6D0] py-12 md:grid-cols-[auto_1fr_1fr] md:gap-12 md:py-16"
             >
               {/* Oversized number */}
-              <span className="font-serif text-5xl leading-none text-[#D8D6D0] transition-colors duration-500 group-hover:text-[#0A0A09] md:text-7xl">
+              <span className="font-serif text-5xl leading-none hover:text-cyan-700 transition-colors duration-500 group-hover:text-[#0A0A09] md:text-7xl">
                 {service.number}
               </span>
 
@@ -151,6 +155,6 @@ export function ServicesPage() {
           </Link>
         </div>
       </section>
-    </div>
+    </GradientBackground>
   );
 }
