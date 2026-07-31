@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import { Contact } from '@/components/contact'
-import { RouteTransition } from '@/components/route-transition'
-import { useLanguage } from '@/lib/language-context'
+import { ContactPage as ContactPageContent } from "@/app/contact/contact-page";
+import { RouteTransition } from "@/components/route-transition";
+
+//TODO: Add the right links
+//TODO: Enhance the written code for this page and its components to be more readable and maintainable.
 
 export default function ContactPage() {
-  const { language } = useLanguage()
-
   return (
     <RouteTransition key="contact">
-      <Contact language={language} />
+      <ContactPageContent />
     </RouteTransition>
-  )
+  );
 }
