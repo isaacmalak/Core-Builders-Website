@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
 import { Inter, Space_Grotesk, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { siteMetadata } from "@/lib/site-metadata";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,13 +20,7 @@ const playfair = Playfair_Display({
   style: ["italic", "normal"],
 });
 
-const COMPANY_NAME = "Link Design Studio";
-
-export const metadata: Metadata = {
-  title: `${COMPANY_NAME} | Software & Marketing Solutions`,
-  description:
-    "Premium software development and digital marketing agency delivering cutting-edge solutions for modern businesses.",
-};
+export const metadata = siteMetadata;
 
 import { Shell } from "@/components/shell";
 

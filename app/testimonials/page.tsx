@@ -1,18 +1,12 @@
-'use client'
-
-import { Testimonials } from '@/components/testimonials'
+import { TestimonialsPage as TestimonialsPageContent } from '@/app/testimonials/testimonials-page'
 import { RouteTransition } from '@/components/route-transition'
-import { GradientBackground } from '@/components/gradient-background'
-import { useLanguage } from '@/lib/language-context'
+
+export { testimonialsPageMetadata as metadata } from './metadata'
 
 export default function TestimonialsPage() {
-  const { language } = useLanguage()
-
   return (
     <RouteTransition key="testimonials">
-      <GradientBackground>
-        <Testimonials language={language} />
-      </GradientBackground>
+      <TestimonialsPageContent />
     </RouteTransition>
   )
 }

@@ -1,18 +1,12 @@
-'use client'
-
-import { Portfolio } from '@/components/portfolio'
+import { PortfolioPage as PortfolioPageContent } from '@/app/portfolio/portfolio-page'
 import { RouteTransition } from '@/components/route-transition'
-import { GradientBackground } from '@/components/gradient-background'
-import { useLanguage } from '@/lib/language-context'
+
+export { portfolioPageMetadata as metadata } from './metadata'
 
 export default function PortfolioPage() {
-  const { language } = useLanguage()
-
   return (
     <RouteTransition key="portfolio">
-      <GradientBackground>
-        <Portfolio language={language} />
-      </GradientBackground>
+      <PortfolioPageContent />
     </RouteTransition>
   )
 }
